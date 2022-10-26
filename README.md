@@ -1,1 +1,3 @@
-# f5-xc-cicd-container-img
+# F5-XC-CICD-CONTAINER-IMG
+
+This repository consists of container image used for CI/CD runner.
