@@ -31,12 +31,11 @@ jobs:
           docker build --label project-url="${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag "${{ secrets.F5XC_AZURECR_IO_TAG }}" .
           docker image ls
         continue-on-error: false
-      #- name: Copy image state
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: image_artifact
-      #    path: ${{ github.workspace }}/modules/f5xc/api-credential/_out/response.json
-      #    retention-days: 1
+      - name: Upload image
+        uses: ishworkh/docker-image-artifact-upload@v1
+        with:
+          image: ${{ secrets.F5XC_AZURECR_IO_TAG }}
+          retention_days: "1"
       - run: echo "This job's status is ${{ job.status }}."
   f5-xc-cicd-container-img-push:
     runs-on: ubuntu-latest
@@ -45,6 +44,10 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Download image
+        uses: ishworkh/docker-image-artifact-download@v1
+        with:
+          image: ${{ secrets.F5XC_AZURECR_IO_TAG }}
       - name: Docker Push
         id: push
         run: |
