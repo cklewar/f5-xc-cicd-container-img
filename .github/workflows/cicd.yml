@@ -24,7 +24,7 @@ jobs:
         run: |
           pwd
           ls -la
-          docker build --label project-url=echo "${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag ${{ secrets.F5XC_AZURECR_IO_TAG }} .
+          docker build --label project-url="${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag ${{ secrets.F5XC_AZURECR_IO_TAG }} .
         continue-on-error: false
       - run: echo "This job's status is ${{ job.status }}."
   f5-xc-cicd-container-img-push:
