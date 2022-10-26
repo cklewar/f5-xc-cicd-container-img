@@ -13,11 +13,10 @@ jobs:
           ref: main
       - name: Docker Build
         id: build
-        run: |
-          docker build --label project-url="${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag "${{ secrets.F5XC_AZURECR_IO_TAG }}" .
-          docker image ls
+        run: docker build --label project-url="${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag "${{ secrets.F5XC_AZURECR_IO_TAG }}" .
         continue-on-error: false
       - name: Upload image
+        id: upload
         uses: ishworkh/docker-image-artifact-upload@v1
         with:
           image: ${{ secrets.F5XC_AZURECR_IO_TAG }}
@@ -31,6 +30,7 @@ jobs:
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Download image
+        id: download
         uses: ishworkh/docker-image-artifact-download@v1
         with:
           image: ${{ secrets.F5XC_AZURECR_IO_TAG }}
@@ -41,18 +41,10 @@ jobs:
           username: ${{ secrets.F5XC_AZURECR_IO_USER }}
           password: ${{ secrets.F5XC_AZURECR_IO_PASSWORD }}
           logout: true
-        #- name: Docker Login
-        #  id: push
-        #  run: |
-        #    echo ${{ secrets.F5XC_AZURECR_IO_PASSWORD }} | docker login -u ${{ secrets.F5XC_AZURECR_IO_USER }} --password-stdin ${{ secrets.F5XC_AZURECR_IO_SERVER }}
         continue-on-error: false
       - run: echo "This job's status is ${{ job.status }}."
       - name: Docker Push
         id: push
-        run: |
-          # echo ${{ secrets.F5XC_AZURECR_IO_PASSWORD }} | docker login -u ${{ secrets.F5XC_AZURECR_IO_USER }} --password-stdin ${{ secrets.F5XC_AZURECR_IO_SERVER }}
-          docker image ls
-          docker push "${{ secrets.F5XC_AZURECR_IO_TAG }}"
-          # run: docker logout ${{ secrets.F5XC_AZURECR_IO_SERVER }}
+        run: docker push "${{ secrets.F5XC_AZURECR_IO_TAG }}"
         continue-on-error: false
       - run: echo "This job's status is ${{ job.status }}."
