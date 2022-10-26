@@ -21,7 +21,10 @@ jobs:
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Docker Build
         id: build
-        run: docker build --label project-url=echo "${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag ${{ secrets.F5XC_AZURECR_IO_TAG }} .
+        run: |
+          pwd
+          ls -la
+          docker build --label project-url=echo "${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag ${{ secrets.F5XC_AZURECR_IO_TAG }} .
         continue-on-error: false
       - run: echo "This job's status is ${{ job.status }}."
   f5-xc-cicd-container-img-push:
