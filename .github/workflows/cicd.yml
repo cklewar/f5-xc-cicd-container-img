@@ -51,8 +51,10 @@ jobs:
       - name: Docker Push
         id: push
         run: |
+          echo ${{ secrets.F5XC_AZURECR_IO_PASSWORD }} | docker login -u ${{ secrets.F5XC_AZURECR_IO_USER }} --password-stdin ${{ secrets.F5XC_AZURECR_IO_SERVER }}
           docker image ls
           docker push "${{ secrets.F5XC_AZURECR_IO_TAG }}"
+          run: docker logout ${{ secrets.F5XC_AZURECR_IO_SERVER }}
         continue-on-error: false
       - run: echo "This job's status is ${{ job.status }}."
   f5-xc-cicd-container-img-logout:
