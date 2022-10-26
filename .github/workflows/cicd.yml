@@ -7,7 +7,7 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Docker Hub Login
+      - name: Docker Login
         id: login
         run: echo ${{ secrets.F5XC_AZURECR_IO_PASSWORD }} | docker login -u ${{ secrets.F5XC_AZURECR_IO_USER }} --password-stdin ${{ secrets.F5XC_AZURECR_IO_SERVER }}
         continue-on-error: false
@@ -19,7 +19,7 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Docker Hub Login
+      - name: Docker Build
         id: build
         run: docker build --label project-url=echo "${{ secrets.F5XC_AZURECR_IO_PROJECT_URL}}" --tag ${{ secrets.F5XC_AZURECR_IO_TAG }} .
         continue-on-error: false
@@ -31,7 +31,7 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Docker Hub Login
+      - name: Docker Push
         id: push
         run: docker push ${{ secrets.F5XC_AZURECR_IO_TAG }}
         continue-on-error: false
@@ -43,7 +43,7 @@ jobs:
       - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub."
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Docker Hub Login
+      - name: Docker logout
         id: logout
         run: docker logout ${{ secrets.F5XC_AZURECR_IO_SERVER }}
         continue-on-error: false
