@@ -1,6 +1,6 @@
 FROM bash:latest
 ARG TF_ARCH=linux_amd64
-ARG TF_VERSION=1.3.3
+ARG TF_VERSION=1.5.1
 
 RUN apk update
 RUN apk add --no-cache gcc musl-dev python3-dev libffi-dev openssl-dev cargo make curl unzip git python3 aws-cli jq && ln -sf python3 /usr/bin/python
