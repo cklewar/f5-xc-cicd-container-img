@@ -7,6 +7,7 @@ RUN apk add --no-cache
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.15/main" | tee -a /etc/apk/repositories
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.15/community/" | tee -a /etc/apk/repositories
 RUN apk add --no-cache bash coreutils build-base gcc musl-dev curl wget python3 python3-dev py3-pip pipx libffi-dev libressl libffi-dev libressl-dev libxslt-dev libxml2-dev=2.9.14-r2 libxml2 jq aws-cli
+RUN apk add --no-cache aws-cli --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community/
 COPY requirements.txt /tmp/requirements.txt
 RUN python3 -m venv /venv
 RUN . /venv/bin/activate
