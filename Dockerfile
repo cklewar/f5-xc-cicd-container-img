@@ -1,6 +1,6 @@
 FROM bash:latest
 ARG TF_ARCH=linux_amd64
-ARG TF_VERSION=1.6.3
+ARG TF_VERSION=1.8.3
 
 RUN apk update
 RUN apk add --no-cache \
