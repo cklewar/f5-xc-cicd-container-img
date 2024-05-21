@@ -21,3 +21,5 @@ RUN rm /tmp/terraform_${TF_VERSION}_${TF_ARCH}.zip
 RUN curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" --output /tmp/kubectl
 RUN mv /tmp/kubectl /bin/kubectl
 RUN chmod +x /bin/kubectl
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
