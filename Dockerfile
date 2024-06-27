@@ -1,6 +1,6 @@
 FROM bash:latest
 ARG TF_ARCH=linux_amd64
-ARG TF_VERSION=1.8.3
+ARG TF_VERSION=1.8.5
 
 RUN apk update
 RUN apk add --no-cache
@@ -14,6 +14,7 @@ RUN . /venv/bin/activate
 RUN /venv/bin/python3 -m pip install --no-cache --upgrade pip setuptools
 RUN /venv/bin/python3 -m pip install --no-cache -r /tmp/requirements.txt
 RUN /venv/bin/python3 -m pip install --no-cache azure-cli
+RUN /venv/bin/python3 -m pip install --no-cache backoff python-gitlab
 RUN /venv/bin/python3 -m ensurepip
 RUN curl https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_${TF_ARCH}.zip --output /tmp/terraform_${TF_VERSION}_${TF_ARCH}.zip
 RUN unzip /tmp/terraform_${TF_VERSION}_${TF_ARCH}.zip -d /tmp
