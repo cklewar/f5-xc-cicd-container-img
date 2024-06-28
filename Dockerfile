@@ -1,12 +1,12 @@
 FROM bash:latest
 ARG TF_ARCH=linux_amd64
-ARG TF_VERSION=1.8.3
+ARG TF_VERSION=1.8.5
 
 RUN apk update
 RUN apk add --no-cache
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.15/main" | tee -a /etc/apk/repositories
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.15/community/" | tee -a /etc/apk/repositories
-RUN apk add --no-cache bash coreutils build-base gcompat libstdc++ gcc musl-dev curl wget python3 python3-dev py3-pip pipx libffi-dev libressl libffi-dev libressl-dev libxslt-dev libxml2-dev=2.9.14-r2 libxml2 jq git unzip
+RUN apk add --no-cache bash coreutils build-base gcompat libstdc++ gcc musl-dev curl wget python3 python3-dev py3-pip pipx libffi-dev libressl libffi-dev libressl-dev libxslt-dev libxml2-dev=2.9.14-r2 libxml2 jq git unzip cdrkit
 RUN apk add --no-cache aws-cli --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community/
 COPY requirements.txt /tmp/requirements.txt
 COPY .terraformrc /root/.terraformrc
